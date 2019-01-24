@@ -8,8 +8,8 @@ RUN npm install
 # RUN npm run build
 # RUN npm prune
 
-COPY . .
+COPY --chown=node:node
 
-EXPOSE 8080
+EXPOSE 3000
 
 ENTRYPOINT ["npm", "start" ]

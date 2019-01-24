@@ -9,7 +9,7 @@ spec:
     app: $APPNAME
   ports:
   - protocol: TCP
-    port: 8080
+    port: 3000
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
       - name: $APPNAME
         image: $IMAGETAG
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -44,4 +44,4 @@ metadata:
 spec:
   backend:
     serviceName: $APPNAME
-    servicePort: 8080
+    servicePort: 3000
