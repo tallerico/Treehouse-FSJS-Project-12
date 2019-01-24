@@ -35,7 +35,7 @@ spec:
       steps {
         withCredentials([file(credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
           container('gcloud') {
-            sh "PYTHONUNBUFFERED=1 gcloud activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS"
+            sh "PYTHONUNBUFFERED=1 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS"
             sh "PYTHONUNBUFFERED=1 gcloud info"
             sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
           }
