@@ -22,9 +22,6 @@ spec:
     command:
     - cat
     tty: true
-    env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: ${GOOGLE_APPLICATION_CREDENTIALS}
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
