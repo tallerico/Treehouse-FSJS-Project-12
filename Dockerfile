@@ -8,7 +8,7 @@ RUN npm install
 # RUN npm run build
 # RUN npm prune
 
-COPY --chown=node:node
+COPY --chown=node:node . .
 
 EXPOSE 3000
 
