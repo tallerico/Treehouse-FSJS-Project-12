@@ -4,7 +4,7 @@ def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMB
 
 pipeline {
   agent {
-    withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {}
+    withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
       kubernetes {
         label 'Treehouse-FSJS-Project-12'
         defaultContainer 'jnlp'
@@ -32,8 +32,8 @@ spec:
     - cat
     tty: true
 """
-  }
-}
+      }
+    }
   }
   stages {
     stage('Build and push image with Container Builder') {
