@@ -4,10 +4,11 @@ def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMB
 
 pipeline {
   agent {
-    kubernetes {
-      label 'Treehouse-FSJS-Project-12'
-      defaultContainer 'jnlp'
-      yaml """
+    withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {}
+      kubernetes {
+        label 'Treehouse-FSJS-Project-12'
+        defaultContainer 'jnlp'
+        yaml """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -22,12 +23,16 @@ spec:
     command:
     - cat
     tty: true
+    env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: ${GOOGLE_APPLICATION_CREDENTIALS}
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
     - cat
     tty: true
 """
+  }
 }
   }
   stages {
