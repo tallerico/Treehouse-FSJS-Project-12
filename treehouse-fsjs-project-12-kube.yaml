@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: $appName
-  namespace: $appName
+  name: $APPNAME
+  namespace: $APPNAME
 spec:
   type: NodePort
   selector:
-    app: $appName
+    app: $APPNAME
   ports:
   - protocol: TCP
     port: 8080
@@ -15,23 +15,23 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: $appName-deployment
-  namespace: $appName
+  name: $APPNAME-deployment
+  namespace: $APPNAME
   labels:
-    app: $appName
+    app: $APPNAME
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: $appName
+      app: $APPNAME
   template:
     metadata:
       labels:
-        app: $appName
+        app: $APPNAME
     spec:
       containers:
-      - name: $appName
-        image: $imageTag
+      - name: $APPNAME
+        image: $IMAGETAG
         ports:
         - containerPort: 8080
 ---
@@ -39,10 +39,10 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   labels:
-    app: $appName
-  name: $appName
-  namespace: $appName
+    app: $APPNAME
+  name: $APPNAME
+  namespace: $APPNAME
 spec:
   backend:
-    serviceName: $appName
+    serviceName: $APPNAME
     servicePort: 8080
