@@ -1,4 +1,5 @@
-def project = 'REPLACE_WITH_YOUR_PROJECT_ID'
+def project = 'the-space-app'
+def appName = 'Treehouse-FSJS-Project-12'
 def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
