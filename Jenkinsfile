@@ -1,5 +1,5 @@
 pipeline {
-  env {
+  environment {
     APPNAME = 'treehouse-fsjs-project-12'
     PROJECT = 'the-space-app'
     IMAGETAG = 'gcr.io/${PROJECT}/${APPNAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}'
