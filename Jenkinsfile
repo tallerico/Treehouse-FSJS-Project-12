@@ -8,7 +8,7 @@ pipeline {
       label 'Treehouse-FSJS-Project-12'
       defaultContainer 'jnlp'
       withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
-      yaml """
+        yaml """
 apiVersion: v1
 kind: Pod
 metadata:
