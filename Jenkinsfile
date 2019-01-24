@@ -4,11 +4,11 @@ def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMB
 
 pipeline {
   agent {
-    withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
-      kubernetes {
-        label 'Treehouse-FSJS-Project-12'
-        defaultContainer 'jnlp'
-        yaml """
+    kubernetes {
+      label 'Treehouse-FSJS-Project-12'
+      defaultContainer 'jnlp'
+      withCredentials([[$class: 'FileBinding', credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
+      yaml """
 apiVersion: v1
 kind: Pod
 metadata:
