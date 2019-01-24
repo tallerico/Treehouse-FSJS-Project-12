@@ -1,5 +1,5 @@
 def project = 'the-space-app'
-def appName = 'Treehouse-FSJS-Project-12'
+def appName = 'treehouse-fsjs-project-12'
 def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
@@ -36,7 +36,6 @@ spec:
         withCredentials([file(credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
           container('gcloud') {
             sh "PYTHONUNBUFFERED=1 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS"
-            sh "PYTHONUNBUFFERED=1 gcloud info"
             sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
           }
         }
