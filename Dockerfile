@@ -1,7 +1,15 @@
 FROM node:10.15.0-alpine
 
-RUN npm install
-RUN npm run build
-RUN npm prune
+WORKDIR /usr/src/app
 
-ENTRYPOINT ["npm", "run", "-d", "start" ]
+COPY package*.json ./
+
+RUN npm install
+# RUN npm run build
+# RUN npm prune
+
+COPY . .
+
+EXPOSE 8080
+
+ENTRYPOINT ["npm", "start" ]
