@@ -35,14 +35,14 @@ spec:
         ports:
         - containerPort: 8080
 ---
-- apiVersion: extensions/v1beta1
-  kind: Ingress
-  metadata:
-    labels:
-      app: $appName
-    name: $appName
-    namespace: $appName
-  spec:
-    backend:
-      serviceName: $appName
-      servicePort: 8080
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: $appName
+  name: $appName
+  namespace: $appName
+spec:
+  backend:
+    serviceName: $appName
+    servicePort: 8080
