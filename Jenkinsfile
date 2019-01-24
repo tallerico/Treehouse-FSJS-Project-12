@@ -1,6 +1,6 @@
 def project = 'the-space-app'
 def appName = 'Treehouse-FSJS-Project-12'
-def  imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 pipeline {
   agent {
@@ -15,7 +15,7 @@ labels:
   component: ci
 spec:
   # Use service account that can deploy to all namespaces
-  serviceAccountName: cd-jenkins
+  serviceAccountName: jenkins
   containers:
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
