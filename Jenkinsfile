@@ -7,7 +7,6 @@ pipeline {
     kubernetes {
       label 'Treehouse-FSJS-Project-12'
       defaultContainer 'jnlp'
-      withCredentials([file(credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
         yaml """
 apiVersion: v1
 kind: Pod
@@ -32,15 +31,17 @@ spec:
     - cat
     tty: true
 """
-      }
     }
   }
   stages {
     stage('Build and push image with Container Builder') {
       steps {
-        container('gcloud') {
-          sh "PYTHONUNBUFFERED=1 gcloud info"
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
+        withCredentials([file(credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+          container('gcloud') {
+            sh "PYTHONUNBUFFERED=1 gcloud activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS"
+            sh "PYTHONUNBUFFERED=1 gcloud info"
+            sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${imageTag} ."
+          }
         }
       }
     }
