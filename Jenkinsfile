@@ -37,6 +37,7 @@ spec:
         withCredentials([file(credentialsId: 'google-secret-file', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
           container('gcloud') {
             sh "PYTHONUNBUFFERED=1 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS"
+            sh "echo ${env.IMAGETAG}"
             sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${env.IMAGETAG} ."
           }
         }
