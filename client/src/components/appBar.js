@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import { GoogleLogin } from 'react-google-login'
 
 const styles = {
 	root: {
@@ -33,7 +34,16 @@ function ButtonAppBar(props) {
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Dashup
 					</Typography>
-					<Button color="inherit">Login</Button>
+					<GoogleLogin
+						clientId="1039345987661-8d3g2ujmet6hvk20bt2i3pjs75vn1cp2.apps.googleusercontent.com"
+						render={renderProps => (
+							<Button onClick={renderProps.onClick} color="inherit">
+								Login
+							</Button>
+						)}
+						onSuccess={props.googleResponse}
+						onFailure={props.onFailure}
+					/>
 				</Toolbar>
 			</AppBar>
 		</div>
