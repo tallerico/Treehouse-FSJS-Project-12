@@ -39,7 +39,7 @@ app.use('/api', router)
 
 router.get('/current_weather/:lat,:long', (req, res, next) => {
 	request(
-		`https://api.darksky.net/forecast/156aab7f17e10e9636c651eaaeec2376/${req.params.lat},${
+		`https://api.darksky.net/forecast/${process.env.DARKSKY_API}/${req.params.lat},${
 			req.params.long
 		}`,
 		function(error, response, body) {
