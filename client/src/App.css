@@ -1,0 +1,9 @@
+.container_weather {
+	display: flex;
+	flex-direction: column;
+	padding: 2em;
+	align-items: center;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
