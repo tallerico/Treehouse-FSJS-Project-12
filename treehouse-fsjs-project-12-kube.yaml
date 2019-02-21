@@ -33,6 +33,27 @@ spec:
         image: $IMAGETAG
         ports:
         - containerPort: 3000
+        env:
+        - name: DARKSKY_API
+          valueFrom:
+            secretKeyRef:
+              name: dashup-secrets
+              key: DARKSKY_API
+        - name: MONGO_DB_LINK
+          valueFrom:
+            secretKeyRef:
+              name: dashup-secrets
+              key: MONGO_DB_LINK
+        - name: REACT_APP_GOOGLE_LOGIN_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: dashup-secrets
+              key: REACT_APP_GOOGLE_LOGIN_CLIENT_ID
+        - name: REACT_APP_GOOGLE_LOGIN_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: dashup-secrets
+              key: REACT_APP_GOOGLE_LOGIN_CLIENT_SECRET
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
