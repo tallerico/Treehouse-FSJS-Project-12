@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
 import AppBar from './components/appBar'
+import CurrWeather from './components/currentWeather'
+import './App.css'
 
 const theme = createMuiTheme({
 	palette: {
@@ -39,21 +41,7 @@ class App extends Component {
 		console.log(error)
 	}
 
-	setLocation = (lat, long) => {
-		this.setState({
-			userLocation: {
-				lat: lat,
-				long: long,
-			},
-		})
-	}
-
-	componentDidMount() {
-		navigator.geolocation.getCurrentPosition(function(position) {
-			this.setLocation(position.coords.latitude, position.coords.longitude)
-			console.log(position.coords.latitude, position.coords.longitude)
-		})
-	}
+	componentDidMount() {}
 
 	render() {
 		return (
@@ -63,6 +51,7 @@ class App extends Component {
 					logout={this.logout}
 					onFailure={this.onFailure}
 				/>
+				<CurrWeather />
 			</MuiThemeProvider>
 		)
 	}
