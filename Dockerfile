@@ -6,7 +6,10 @@ COPY package*.json ./
 COPY backend/package*.json ./backend/
 COPY client/package*.json ./client/
 
-RUN npm install
+RUN npm install && \
+    npm install backend && 
+    npm install client
+     
 # RUN npm run build
 # RUN npm prune
 
