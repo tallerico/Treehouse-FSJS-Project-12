@@ -3,6 +3,8 @@ FROM node:10.15.0-alpine
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY backend/package*.json ./backend/
+COPY client/package*.json ./client/
 
 RUN npm install
 # RUN npm run build
