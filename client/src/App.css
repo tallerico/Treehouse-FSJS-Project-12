@@ -7,3 +7,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.container_avatar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: auto;
+}
