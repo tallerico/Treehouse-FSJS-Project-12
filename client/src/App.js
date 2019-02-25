@@ -3,7 +3,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
 import AppBar from './components/appBar'
 import CurrWeather from './components/currentWeather'
+import Welcome from './components/welcome'
+import LatestNews from './components/latestNews.js'
 import './App.css'
+const axios = require('axios')
 
 const theme = createMuiTheme({
 	palette: {
@@ -26,6 +29,7 @@ class App extends Component {
 			userImg: null,
 			email: null,
 			token: '',
+			news: [],
 		}
 	}
 
@@ -49,7 +53,11 @@ class App extends Component {
 		console.log(error)
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		axios('http://localhost:3001/api/current_news').then(res => {
+			this.setState({ news: res.data.articles })
+		})
+	}
 
 	render() {
 		return (
@@ -62,7 +70,9 @@ class App extends Component {
 					logout={this.logout}
 					onFailure={this.onFailure}
 				/>
+				<Welcome isAuthenticated={this.state.isAuthenticated} firstName={this.state.firstName} />
 				<CurrWeather />
+				<LatestNews news={this.state.news} />
 			</MuiThemeProvider>
 		)
 	}
