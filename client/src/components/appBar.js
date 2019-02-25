@@ -4,10 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import { GoogleLogin } from 'react-google-login'
+import UserAvatar from './avatar'
 
 const styles = {
 	root: {
@@ -20,6 +19,14 @@ const styles = {
 		marginLeft: -12,
 		marginRight: 20,
 	},
+	avatar: {
+		margin: 10,
+	},
+	bigAvatar: {
+		margin: 10,
+		width: 60,
+		height: 60,
+	},
 }
 
 function ButtonAppBar(props) {
@@ -28,21 +35,15 @@ function ButtonAppBar(props) {
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-						<MenuIcon />
-					</IconButton>
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Dashup
 					</Typography>
-					<GoogleLogin
-						clientId="1039345987661-8d3g2ujmet6hvk20bt2i3pjs75vn1cp2.apps.googleusercontent.com"
-						render={renderProps => (
-							<Button onClick={renderProps.onClick} color="inherit">
-								Login
-							</Button>
-						)}
+					<UserAvatar
+						classes={props.classes}
 						onSuccess={props.googleResponse}
-						onFailure={props.onFailure}
+						userImage={props.userImage}
+						firstName={props.firstName}
+						isAuthenticated={props.isAuthenticated}
 					/>
 				</Toolbar>
 			</AppBar>
