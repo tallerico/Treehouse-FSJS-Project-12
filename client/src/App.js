@@ -20,12 +20,12 @@ class App extends Component {
 		super(props)
 		this.state = {
 			isAuthenticated: false,
-			user: null,
+			firstName: null,
+			lastName: null,
+			name: null,
+			userImg: null,
+			email: null,
 			token: '',
-			userLocation: {
-				lat: '',
-				long: '',
-			},
 		}
 	}
 
@@ -34,6 +34,14 @@ class App extends Component {
 	}
 
 	googleResponse = response => {
+		this.setState({
+			firstName: response.profileObj.givenName,
+			lastName: response.profileObj.familyName,
+			email: response.profileObj.email,
+			userImg: response.profileObj.imageUrl,
+			name: response.profileObj.name,
+			isAuthenticated: true,
+		})
 		console.log(response)
 	}
 
@@ -47,6 +55,9 @@ class App extends Component {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<AppBar
+					userImage={this.state.userImg}
+					firstName={this.state.firstName}
+					isAuthenticated={this.state.isAuthenticated}
 					googleResponse={this.googleResponse}
 					logout={this.logout}
 					onFailure={this.onFailure}
