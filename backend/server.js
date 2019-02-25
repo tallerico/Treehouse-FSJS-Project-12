@@ -53,5 +53,17 @@ router.get('/current_weather/:lat,:long', (req, res, next) => {
 	)
 })
 
+router.get('/current_news', (req, res, next) => {
+	request(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.CNN_API}`, function(
+		error,
+		response,
+		body,
+	) {
+		const data = JSON.parse(body)
+		res.send(data)
+		res.end()
+	})
+})
+
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
