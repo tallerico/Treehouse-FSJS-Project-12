@@ -14,3 +14,9 @@
 	align-items: center;
 	margin-left: auto;
 }
+
+.container_welcome {
+	display: flex;
+	justify-content: center;
+	padding: 2em;
+}
