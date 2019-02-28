@@ -8,40 +8,32 @@ function Welcome(props) {
 
 	if (props.isAuthenticated && currHour >= 0 && currHour < 12) {
 		return (
-			<div className="container_welcome">
-				<Typography variant="h4" color="inherit">
-					Good Morning, {props.firstName}!
-				</Typography>
-			</div>
+			<Typography variant="h4" color="inherit">
+				Good Morning, {props.firstName}!
+			</Typography>
 		)
 	}
 
 	if (props.isAuthenticated && currHour >= 12 && currHour < 17) {
 		return (
-			<div className="container_welcome">
-				<Typography variant="h4" color="inherit">
-					Good Afternoon, {props.firstName}!
-				</Typography>
-			</div>
+			<Typography variant="h4" color="inherit">
+				Good Afternoon, {props.firstName}!
+			</Typography>
 		)
 	}
 
 	if (props.isAuthenticated && currHour >= 17 && currHour <= 24) {
 		return (
-			<div className="container_welcome">
-				<Typography variant="h4" color="inherit">
-					Good Evening, {props.firstName}!
-				</Typography>
-			</div>
+			<Typography variant="h4" color="inherit">
+				Good Evening, {props.firstName}!
+			</Typography>
 		)
 	}
 
 	return (
-		<div className="container_welcome">
-			<Typography variant="h4" color="inherit">
-				Hello!
-			</Typography>
-		</div>
+		<Typography variant="h4" color="inherit">
+			Hello!
+		</Typography>
 	)
 }
 
