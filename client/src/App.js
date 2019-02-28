@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
+import Grid from './components/grid'
 import AppBar from './components/appBar'
 import CurrWeather from './components/currentWeather'
 import Welcome from './components/welcome'
@@ -62,17 +63,15 @@ class App extends Component {
 	render() {
 		return (
 			<MuiThemeProvider theme={theme}>
-				<AppBar
+				<Grid
 					userImage={this.state.userImg}
 					firstName={this.state.firstName}
 					isAuthenticated={this.state.isAuthenticated}
 					googleResponse={this.googleResponse}
 					logout={this.logout}
 					onFailure={this.onFailure}
+					news={this.state.news}
 				/>
-				<Welcome isAuthenticated={this.state.isAuthenticated} firstName={this.state.firstName} />
-				<CurrWeather />
-				<LatestNews news={this.state.news} />
 			</MuiThemeProvider>
 		)
 	}
