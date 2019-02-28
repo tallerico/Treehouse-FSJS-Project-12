@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import WeatherIcon from './weatherIcon'
 import '../App.css'
 import { css } from '@emotion/core'
@@ -43,7 +43,7 @@ class CurrWeather extends Component {
 	render(props) {
 		if (!this.state.loading) {
 			return (
-				<div className="container_weather">
+				<Fragment>
 					<WeatherIcon icon={this.state.icon} />
 					<Typography variant="h6" color="inherit">
 						{this.state.summary}
@@ -51,19 +51,17 @@ class CurrWeather extends Component {
 					<Typography variant="h6" color="inherit">
 						{this.state.temp} degrees
 					</Typography>
-				</div>
+				</Fragment>
 			)
 		}
 		return (
-			<div className="container_weather">
-				<BounceLoader
-					css={override}
-					sizeUnit={'px'}
-					size={150}
-					color={'#2196f3'}
-					loading={this.state.loading}
-				/>
-			</div>
+			<BounceLoader
+				css={override}
+				sizeUnit={'px'}
+				size={150}
+				color={'#2196f3'}
+				loading={this.state.loading}
+			/>
 		)
 	}
 }
