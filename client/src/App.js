@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
 import Grid from './components/grid'
-import AppBar from './components/appBar'
-import CurrWeather from './components/currentWeather'
-import Welcome from './components/welcome'
-import LatestNews from './components/latestNews.js'
 import './App.css'
 const axios = require('axios')
 
