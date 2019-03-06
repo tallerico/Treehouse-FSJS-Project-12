@@ -20,3 +20,9 @@
 	justify-content: center;
 	padding: 2em;
 }
+
+.max_skycon {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
