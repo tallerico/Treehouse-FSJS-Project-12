@@ -41,6 +41,7 @@ function ButtonAppBar(props) {
 					<UserAvatar
 						classes={props.classes}
 						onSuccess={props.googleResponse}
+						logout={props.logout}
 						userImage={props.userImage}
 						firstName={props.firstName}
 						isAuthenticated={props.isAuthenticated}
