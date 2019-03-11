@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import AppBar from './appBar'
 import { withStyles } from '@material-ui/core/styles'
 import CurrentWeather from './currentWeather'
 import Welcome from './welcome'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import LatestNews from './latestNews'
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
 	root: {
@@ -21,29 +21,36 @@ const styles = theme => ({
 
 function FullWidthGrid(props) {
 	const { classes } = props
+	if (props.isAuthenticated) {
+		return (
+			<div className={classes.root}>
+				<Grid container spacing={24}>
+					<Grid item xs={12}>
+						<Paper className={classes.paper}>
+							<Welcome isAuthenticated={props.isAuthenticated} firstName={props.givenName} />
+						</Paper>
+					</Grid>
+					<Grid item xs={12}>
+						<Paper className={classes.paper}>
+							<CurrentWeather />
+						</Paper>
+					</Grid>
+					<LatestNews news={props.news} />
+				</Grid>
+			</div>
+		)
+	}
 
 	return (
 		<div className={classes.root}>
-			<AppBar
-				userImage={props.userImage}
-				firstName={props.firstName}
-				isAuthenticated={props.isAuthenticated}
-				googleResponse={props.googleResponse}
-				logout={props.logout}
-				onFailure={props.onFailure}
-			/>
 			<Grid container spacing={24}>
 				<Grid item xs={12}>
 					<Paper className={classes.paper}>
-						<Welcome isAuthenticated={props.isAuthenticated} firstName={props.firstName} />
+						<Typography variant="subtitle1" gutterBottom>
+							Please sign in to access your personal dashboard.
+						</Typography>
 					</Paper>
 				</Grid>
-				<Grid item xs={12}>
-					<Paper className={classes.paper}>
-						<CurrentWeather />
-					</Paper>
-				</Grid>
-				<LatestNews news={props.news} />
 			</Grid>
 		</div>
 	)
