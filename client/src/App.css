@@ -17,7 +17,8 @@
 
 .container_welcome {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	padding: 2em;
 }
 
@@ -26,3 +27,9 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+/* .bottom_pin {
+	display: flex;
+	position: absolute;
+	justify-content: center;
+} */
