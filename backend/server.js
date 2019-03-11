@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 const request = require('request')
 const { OAuth2Client } = require('google-auth-library')
+const helmet = require('helmet')
 const cors = require('cors')
 const User = require('./models/User')
 
@@ -31,6 +32,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(logger('dev'))
+app.use(helmet())
 
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*')
@@ -100,15 +102,20 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 					if (error) {
 						return next(error)
 					} else {
-						res.send(userInfo)
+						res.set('Location', '/home')
+						res.send(docs)
 						res.status(204)
+						res.end()
 					}
 				})
 			} else {
-				console.log('Exist Already')
+				res.set('Location', '/home')
+				res.send(docs)
+				res.status(204)
+				res.end()
 			}
 		})
-		console.log(userInfo)
+		// console.log(userInfo)
 	}
 	verify().catch(console.error)
 
