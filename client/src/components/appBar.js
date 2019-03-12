@@ -4,9 +4,8 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
 import UserAvatar from './avatar'
+import Menu from './menu'
 
 const styles = {
 	root: {
@@ -14,10 +13,6 @@ const styles = {
 	},
 	grow: {
 		flexGrow: 1,
-	},
-	menuButton: {
-		marginLeft: -12,
-		marginRight: 20,
 	},
 	avatar: {
 		margin: 10,
@@ -35,6 +30,7 @@ function ButtonAppBar(props) {
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
+					<Menu />
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Dashup
 					</Typography>
