@@ -47,6 +47,7 @@ class App extends Component {
 				localStorage.clear()
 				localStorage.setItem('givenName', `${response.data[0]['given_name']}`)
 				localStorage.setItem('picture_url', `${response.data[0]['picture_url']}`)
+				localStorage.setItem('isAuthenticated', `true`)
 				this.setState({
 					isAuthenticated: true,
 					given_name: `${response.data[0]['given_name']}`,
@@ -71,6 +72,7 @@ class App extends Component {
 		})
 
 		this.setState({
+			isAuthenticated: localStorage.getItem('isAuthenticated'),
 			given_name: localStorage.getItem('givenName'),
 			userImage: localStorage.getItem('picture_url'),
 		})
