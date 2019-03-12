@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 const request = require('request')
 const { OAuth2Client } = require('google-auth-library')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const helmet = require('helmet')
 const cors = require('cors')
 const User = require('./models/User')
@@ -33,6 +35,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(logger('dev'))
 app.use(helmet())
+app.use(
+	session({
+		secret: 'my-secret',
+		resave: false,
+		saveUninitialized: false,
+		store: new MongoStore({ mongooseConnection: db }),
+		cookie: { httpOnly: false, domain: 'http://localhost:3000/' },
+	}),
+)
 
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*')
@@ -86,6 +97,8 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 		const payload = ticket.getPayload()
 		const userid = payload['sub']
 		const userInfo = payload
+		const sessionID = req.sessionID
+		req.session.user = userInfo
 		// If request specified a G Suite domain:
 		//const domain = payload['hd'];
 		User.find({ user_id: userInfo['sub'] }, function(err, docs) {
