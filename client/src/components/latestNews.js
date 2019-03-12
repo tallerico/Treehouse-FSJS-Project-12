@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import NewsItem from './newsItem'
 
 const styles = theme => ({
@@ -29,7 +27,7 @@ function TitlebarGridList(props) {
 	return (
 		<div className={classes.root}>
 			{news.map(tile => (
-				<NewsItem news={tile} key={tile.urlToImage} />
+				<NewsItem news={tile} classes={classes} key={tile.urlToImage} />
 			))}
 		</div>
 	)
