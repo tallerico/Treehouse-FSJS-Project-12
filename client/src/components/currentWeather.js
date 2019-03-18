@@ -28,7 +28,6 @@ class CurrWeather extends Component {
 		navigator.geolocation.getCurrentPosition(position => {
 			const currLat = position.coords.latitude
 			const currLong = position.coords.longitude
-			console.log(position.coords.latitude, position.coords.longitude)
 			axios.get(`http://localhost:3001/api/current_weather/${currLat},${currLong}`).then(res => {
 				this.setState({
 					temp: Math.trunc(res.data.temp),
