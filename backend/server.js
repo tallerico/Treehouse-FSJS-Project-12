@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo')(session)
 const helmet = require('helmet')
 const cors = require('cors')
 const User = require('./models/User')
+const News = require('./models/News')
 
 const API_PORT = 3001
 const app = express()
@@ -37,10 +38,12 @@ app.use(logger('dev'))
 app.use(helmet())
 app.use(
 	session({
-		secret: 'my-secret',
+		secret: 'you are the coolest',
 		resave: false,
 		saveUninitialized: false,
-		store: new MongoStore({ mongooseConnection: db }),
+		store: new MongoStore({
+			mongooseConnection: db,
+		}),
 		cookie: { httpOnly: false, domain: 'http://localhost:3000/' },
 	}),
 )
@@ -98,7 +101,7 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 		const userid = payload['sub']
 		const userInfo = payload
 		const sessionID = req.sessionID
-		req.session.user = userInfo
+		console.log(sessionID)
 		// If request specified a G Suite domain:
 		//const domain = payload['hd'];
 		User.find({ user_id: userInfo['sub'] }, function(err, docs) {
@@ -115,15 +118,17 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 					if (error) {
 						return next(error)
 					} else {
+						req.session.userId = docs._id
 						res.set('Location', '/home')
-						res.send(docs)
+						res.send({ docs, sessionID })
 						res.status(204)
 						res.end()
 					}
 				})
 			} else {
+				req.session.userId = docs[0]._id
 				res.set('Location', '/home')
-				res.send(docs)
+				res.send({ docs, sessionID })
 				res.status(204)
 				res.end()
 			}
@@ -131,14 +136,41 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 		// console.log(userInfo)
 	}
 	verify().catch(console.error)
+})
 
-	// request(`https://oauth2.googleapis.com/tokeninfo?id_token=${req.body.token}`, function(
-	// 	error,
-	// 	response,
-	// 	body,
-	// ) {
-	// 	console.log(body)
-	// })
+router.get('/logout', (req, res, next) => {
+	req.session.destroy(err => {
+		if (err) {
+			next(err)
+		}
+		res.status(204).end()
+	})
+})
+
+router.post('/saved_story', cors(corsOptions), (req, res, next) => {
+	console.log(req.body)
+	const news = new News({
+		user: req.body.userID,
+		image_url: req.body.imageURL,
+		url: req.body.link,
+		snippet: req.body.snippet,
+	})
+	News.create(news, function(error, docs) {
+		if (error) {
+			return next(error)
+		}
+	})
+	res.status(204).end()
+})
+
+router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
+	News.find({ user: req.params.user }, function(error, docs) {
+		if (error) {
+			return next(error)
+		}
+		console.log(docs)
+		res.send(docs)
+	})
 })
 
 // launch our backend into a port
