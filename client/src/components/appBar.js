@@ -30,7 +30,6 @@ function ButtonAppBar(props) {
 		<div className={classes.root}>
 			<AppBar position="static">
 				<Toolbar>
-					<Menu />
 					<Typography variant="h6" color="inherit" className={classes.grow}>
 						Dashup
 					</Typography>
