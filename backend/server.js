@@ -101,7 +101,7 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 		const userid = payload['sub']
 		const userInfo = payload
 		const sessionID = req.sessionID
-		console.log(sessionID)
+
 		// If request specified a G Suite domain:
 		//const domain = payload['hd'];
 		User.find({ user_id: userInfo['sub'] }, function(err, docs) {
@@ -114,7 +114,10 @@ router.post('/token', cors(corsOptions), (req, res, next) => {
 					email: userInfo['email'],
 					picture_url: userInfo['picture'],
 				})
-				User.create(user, function(error, docs) {
+				User.create(user, function(error, user) {
+					const docs = []
+					docs.push(user)
+
 					if (error) {
 						return next(error)
 					} else {
@@ -148,12 +151,11 @@ router.get('/logout', (req, res, next) => {
 })
 
 router.post('/saved_story', cors(corsOptions), (req, res, next) => {
-	console.log(req.body)
 	const news = new News({
 		user: req.body.userID,
-		image_url: req.body.imageURL,
-		url: req.body.link,
-		snippet: req.body.snippet,
+		urlToImage: req.body.urlToImage,
+		url: req.body.url,
+		title: req.body.title,
 	})
 	News.create(news, function(error, docs) {
 		if (error) {
@@ -168,7 +170,6 @@ router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
 		if (error) {
 			return next(error)
 		}
-		console.log(docs)
 		res.send(docs)
 	})
 })
