@@ -4,6 +4,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import blue from '@material-ui/core/colors/blue'
 import AppBar from './components/appBar'
 import Grid from './components/grid'
+
 import InitiailWelcome from './components/initial'
 import './App.css'
 import history from './history'
@@ -26,14 +27,25 @@ class App extends Component {
 			isAuthenticated: false,
 			given_name: '',
 			userImage: '',
-			news: [],
+			sessionID: '',
+			userID: '',
 		}
 	}
 
 	logout = () => {
-		this.setState({ isAuthenticated: false })
-		localStorage.clear()
-		history.push('/')
+		axios('http://localhost:3001/api/logout', {
+			sessionID: this.state.sessionID,
+		}).then(res => {
+			this.setState({
+				isAuthenticated: false,
+				given_name: '',
+				userImage: '',
+				sessionID: '',
+				userID: '',
+			})
+			localStorage.clear()
+			history.push('/')
+		})
 	}
 
 	googleResponse = response => {
@@ -45,13 +57,18 @@ class App extends Component {
 			.then(response => {
 				console.log(response)
 				localStorage.clear()
-				localStorage.setItem('givenName', `${response.data[0]['given_name']}`)
-				localStorage.setItem('picture_url', `${response.data[0]['picture_url']}`)
+				localStorage.setItem('givenName', `${response.data.docs[0]['given_name']}`)
+				localStorage.setItem('picture_url', `${response.data.docs[0]['picture_url']}`)
+				localStorage.setItem('sessionID', `${response.data.sessionID}`)
+				localStorage.setItem('userID', `${response.data.docs[0]['_id']}`)
 				localStorage.setItem('isAuthenticated', `true`)
+
 				this.setState({
 					isAuthenticated: true,
-					given_name: `${response.data[0]['given_name']}`,
-					userImage: `${response.data[0]['picture_url']}`,
+					given_name: `${response.data.docs[0]['given_name']}`,
+					userImage: `${response.data.docs[0]['picture_url']}`,
+					sessionID: `${response.data.sessionID}`,
+					userID: `${response.data.docs[0]['_id']}`,
 				})
 				history.push('/home')
 			})
@@ -67,18 +84,19 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		axios('http://localhost:3001/api/current_news').then(res => {
-			this.setState({ news: res.data.articles })
-		})
-
 		this.setState({
 			isAuthenticated: localStorage.getItem('isAuthenticated'),
 			given_name: localStorage.getItem('givenName'),
 			userImage: localStorage.getItem('picture_url'),
+			sessionID: localStorage.getItem('sessionID'),
+			userID: localStorage.getItem('userID'),
 		})
 	}
 
 	render() {
+		if (this.state.isAuthenticated) {
+			history.push('/home')
+		}
 		return (
 			<Fragment>
 				<MuiThemeProvider theme={theme}>
@@ -99,9 +117,10 @@ class App extends Component {
 										googleResponse={this.googleResponse}
 										logout={this.logout}
 										onFailure={this.onFailure}
-										news={this.state.news}
 										givenName={this.state.given_name}
 										isAuthenticated={this.state.isAuthenticated}
+										sessionID={this.state.sessionID}
+										userID={this.state.userID}
 									/>
 								)}
 							/>
