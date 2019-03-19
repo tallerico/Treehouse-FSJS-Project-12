@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
@@ -43,7 +44,6 @@ class MenuListComposition extends React.Component {
 	render() {
 		const { classes } = this.props
 		const { open } = this.state
-
 		return (
 			<div className={classes.root}>
 				<div>
@@ -67,9 +67,10 @@ class MenuListComposition extends React.Component {
 								<Paper>
 									<ClickAwayListener onClickAway={this.handleClose}>
 										<MenuList>
-											<MenuItem onClick={this.handleClose}>Profile</MenuItem>
+											<MenuItem onClick={this.handleClose}>
+												<Link to="/home">Home</Link>
+											</MenuItem>
 											<MenuItem onClick={this.handleClose}>Saved Articles</MenuItem>
-											<MenuItem onClick={this.handleClose}>Completed Tasks</MenuItem>
 										</MenuList>
 									</ClickAwayListener>
 								</Paper>
