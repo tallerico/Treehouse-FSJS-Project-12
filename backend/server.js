@@ -12,6 +12,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const User = require('./models/User')
 const News = require('./models/News')
+const path = require('path')
 
 const API_PORT = 3001
 const app = express()
@@ -58,6 +59,14 @@ app.use(function(req, res, next) {
 // append /api for our http requests
 app.use('/api', router)
 app.use(cors())
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, 'client/build')))
+
+// Anything that doesn't match the above, send back index.html
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 
 const corsOptions = {
 	origin: 'http://localhost:3000',
