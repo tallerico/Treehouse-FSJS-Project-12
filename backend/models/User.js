@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const users = new Schema({
+	_id: {
+		type: Schema.Types.ObjectId,
+		auto: true,
+	},
 	given_name: { type: String, required: true },
 	family_name: { type: String, required: true },
 	full_name: { type: String, required: true },
