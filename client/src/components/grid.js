@@ -35,7 +35,7 @@ function FullWidthGrid(props) {
 							<CurrentWeather />
 						</Paper>
 					</Grid>
-					<LatestNews news={props.news} />
+					<LatestNews sessionID={props.sessionID} userID={props.userID} />
 				</Grid>
 			</div>
 		)
