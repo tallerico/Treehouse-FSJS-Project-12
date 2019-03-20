@@ -22,7 +22,7 @@ function userAvatar(props) {
 	} else {
 		return (
 			<GoogleLogin
-				clientId="1039345987661-8d3g2ujmet6hvk20bt2i3pjs75vn1cp2.apps.googleusercontent.com"
+				clientId=`process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID`
 				render={renderProps => (
 					<Button onClick={renderProps.onClick} color="inherit">
 						Login

@@ -46,7 +46,7 @@ class MediaCard extends Component {
 	saveStory = () => {
 		if (this.state.sessionID && !this.state.saved) {
 			axios
-				.post('http://localhost:3001/api/saved_story', {
+				.post('/api/saved_story', {
 					urlToImage: this.state.urlToImage,
 					title: this.state.title,
 					url: this.state.url,

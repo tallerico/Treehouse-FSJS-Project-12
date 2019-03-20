@@ -50,11 +50,11 @@ class TitlebarGridList extends Component {
 
 	componentDidMount() {
 		const userID = localStorage.getItem('userID')
-		axios('http://localhost:3001/api/current_news').then(res => {
+		axios('/api/current_news').then(res => {
 			this.setState({ news: res.data.articles })
 		})
 
-		axios(`http://localhost:3001/api/saved_news/${userID}`).then(res => {
+		axios(`/api/saved_news/${userID}`).then(res => {
 			const data = []
 			data.push(...res.data)
 			this.setState({
