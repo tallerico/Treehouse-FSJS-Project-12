@@ -186,4 +186,4 @@ router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
 
 // launch our backend into a port
 // app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
-app.listen(process.env.PORT || 5000)
+app.listen(process.env.PORT || 3001)
