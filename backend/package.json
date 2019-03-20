@@ -1,24 +1,29 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Back end package for Project 12 App",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Mike Tallerico",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "connect-mongo": "^2.0.3",
-    "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "google-auth-library": "^3.1.0",
-    "helmet": "^3.15.1",
-    "mongoose": "^5.4.13",
-    "morgan": "^1.9.1",
-    "request": "^2.88.0"
-  }
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "Back end package for Project 12 App",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server",
+		"heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+	},
+	"cacheDirectories": [
+		"node_modules",
+		"react-ui/node_modules"
+	],
+	"author": "Mike Tallerico",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"connect-mongo": "^2.0.3",
+		"cors": "^2.8.5",
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4",
+		"express-session": "^1.15.6",
+		"google-auth-library": "^3.1.0",
+		"helmet": "^3.15.1",
+		"mongoose": "^5.4.13",
+		"morgan": "^1.9.1",
+		"request": "^2.88.0"
+	}
 }
