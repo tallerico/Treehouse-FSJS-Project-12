@@ -33,7 +33,7 @@ class App extends Component {
 	}
 
 	logout = () => {
-		axios('http://localhost:3001/api/logout', {
+		axios('/api/logout', {
 			sessionID: this.state.sessionID,
 		}).then(res => {
 			this.setState({
@@ -51,7 +51,7 @@ class App extends Component {
 	googleResponse = response => {
 		const id_token = response.Zi.id_token
 		axios
-			.post('http://localhost:3001/api/token', {
+			.post('/api/token', {
 				token: id_token,
 			})
 			.then(response => {
