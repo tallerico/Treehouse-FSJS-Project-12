@@ -171,8 +171,8 @@ router.post('/saved_story', cors(corsOptions), (req, res, next) => {
 		if (error) {
 			return next(error)
 		}
+		res.send(docs)
 	})
-	res.status(204).end()
 })
 
 router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
@@ -184,6 +184,15 @@ router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
 	})
 })
 
+router.post('/delete_story', cors(corsOptions), (req, res, next) => {
+	News.deleteOne({ _id: req.body.id }, function(err) {
+		if (err) {
+			console.log(err)
+			return next(err)
+		}
+		res.end()
+	})
+})
 // launch our backend into a port
 // app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
 app.listen(process.env.PORT || 3001)
