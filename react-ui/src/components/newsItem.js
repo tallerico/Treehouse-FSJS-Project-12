@@ -12,7 +12,6 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from '@material-ui/core'
-const axios = require('axios')
 
 const styles = theme => ({
 	card: {
@@ -33,36 +32,12 @@ const styles = theme => ({
 class MediaCard extends Component {
 	constructor(props) {
 		super(props)
+		this.setSaved = this.setSaved.bind(this)
 		this.state = {
 			urlToImage: '',
 			title: '',
 			url: '',
-			saved: false,
-			sessionID: '',
-			userID: '',
-		}
-	}
-
-	saveStory = () => {
-		if (this.state.sessionID && !this.state.saved) {
-			axios
-				.post('/api/saved_story', {
-					urlToImage: this.state.urlToImage,
-					title: this.state.title,
-					url: this.state.url,
-					sessionID: this.state.sessionID,
-					userID: this.state.userID,
-				})
-				.then(res => {
-					if (res.status === 204) {
-						console.log('true')
-						this.setState({
-							saved: true,
-						})
-					}
-				})
-		} else {
-			alert('Article already saved')
+			setSaved: false,
 		}
 	}
 
@@ -74,30 +49,48 @@ class MediaCard extends Component {
 			sessionID: this.props.sessionID,
 			userID: this.props.userID,
 		})
-		if (this.props.isSaved) {
-			this.setState({
-				saved: true,
-			})
-		}
+	}
+
+	setSaved(event) {
+		this.props.saveStory(event)
+		this.setState({
+			setSaved: true,
+		})
 	}
 
 	render() {
 		const { classes } = this.props
 		const { news } = this.props
-		let isSaved
+
 		let icon = (
-			<Fab color="primary" aria-label="Add" className={classes.fab}>
+			<Fab
+				color="primary"
+				aria-label="Add"
+				className={classes.fab}
+				onClick={this.setSaved}
+				id={this.props.listId}
+			>
 				<IconButton>
-					<AddIcon onClick={this.saveStory} />
+					<AddIcon />
 				</IconButton>
 			</Fab>
 		)
 
-		if (this.state.saved) {
+		if (!this.props.deleteStory && this.state.setSaved) {
+			icon = null
+		}
+
+		if (this.props.deleteStory) {
 			icon = (
-				<Fab color="primary" aria-label="Add" className={classes.fab}>
+				<Fab
+					onClick={this.props.deleteStory}
+					color="primary"
+					aria-label="Add"
+					className={classes.fab}
+					id={this.props.listId}
+				>
 					<IconButton>
-						<DeleteIcon onClick={this.deleteStory} />
+						<DeleteIcon />
 					</IconButton>
 				</Fab>
 			)
