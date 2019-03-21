@@ -69,11 +69,12 @@ class TitlebarGridList extends Component {
 	}
 
 	saveStory(event) {
+		let id = event.currentTarget.id
 		axios
 			.post('/api/saved_story', {
-				urlToImage: this.state.news[event.currentTarget.id].urlToImage,
-				title: this.state.news[event.currentTarget.id].title,
-				url: this.state.news[event.currentTarget.id].url,
+				urlToImage: this.state.news[id].urlToImage,
+				title: this.state.news[id].title,
+				url: this.state.news[id].url,
 				sessionID: this.state.sessionID,
 				userID: this.state.userID,
 			})
