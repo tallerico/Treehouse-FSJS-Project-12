@@ -28,17 +28,22 @@ const styles = theme => ({
 		padding: theme.spacing.unit * 2,
 		textAlign: 'center',
 		color: theme.palette.text.secondary,
+		width: '100%',
 	},
 })
 
 class TitlebarGridList extends Component {
 	constructor(props) {
 		super(props)
+		this.saveStory = this.saveStory.bind(this)
+		this.deleteStory = this.deleteStory.bind(this)
 		this.state = {
 			checked: false,
 			savedNews: [],
 			news: [],
-			saved: true,
+			saved: false,
+			sessionID: '',
+			userID: '',
 		}
 	}
 
@@ -46,7 +51,35 @@ class TitlebarGridList extends Component {
 		this.setState({ [name]: event.target.checked })
 	}
 
-	addSavedNews = () => {}
+	deleteStory(event) {
+		let { savedNews } = this.state
+		axios
+			.post('http://localhost:3001/api/delete_story', {
+				id: savedNews[event.currentTarget.id]._id,
+			})
+			.then(res => {
+				if (res.status === 200) {
+					savedNews.splice(event.currentTarget.id, 1)
+					this.setState({
+						savedNews: savedNews,
+					})
+				}
+			})
+	}
+
+	saveStory(event) {
+		axios
+			.post('http://localhost:3001/api/saved_story', {
+				urlToImage: this.state.news[event.currentTarget.id].urlToImage,
+				title: this.state.news[event.currentTarget.id].title,
+				url: this.state.news[event.currentTarget.id].url,
+				sessionID: this.state.sessionID,
+				userID: this.state.userID,
+			})
+			.then(res => {
+				this.state.savedNews.push(res.data)
+			})
+	}
 
 	componentDidMount() {
 		const userID = localStorage.getItem('userID')
@@ -63,9 +96,8 @@ class TitlebarGridList extends Component {
 		})
 
 		this.setState({
-			isAuthenticated: localStorage.getItem('isAuthenticated'),
-			given_name: localStorage.getItem('givenName'),
-			userImage: localStorage.getItem('picture_url'),
+			sessionID: this.props.sessionID,
+			userID: this.props.userID,
 		})
 	}
 
@@ -74,24 +106,27 @@ class TitlebarGridList extends Component {
 		const { news } = this.state
 		const { savedNews } = this.state
 
-		let newsComponent = news.map(tile => (
+		let newsComponent = news.map((tile, index) => (
 			<NewsItem
 				news={tile}
-				sessionID={this.props.sessionID}
-				userID={this.props.userID}
 				classes={classes}
-				key={tile.urlToImage}
+				key={index}
+				listId={index}
+				saveStory={this.saveStory}
 			/>
 		))
 		if (this.state.checked) {
-			newsComponent = savedNews.map(tile => (
+			newsComponent = savedNews.map((tile, index) => (
 				<NewsItem
 					news={tile}
+					id={tile._id}
 					sessionID={this.props.sessionID}
 					userID={this.props.userID}
 					classes={classes}
-					key={tile.urlToImage}
-					isSaved={this.state.saved}
+					key={tile._id}
+					listId={index}
+					saved={this.state.saved}
+					deleteStory={this.deleteStory}
 				/>
 			))
 		}
