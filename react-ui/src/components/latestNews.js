@@ -53,13 +53,14 @@ class TitlebarGridList extends Component {
 
 	deleteStory(event) {
 		let { savedNews } = this.state
+		let id = event.currentTarget.id
 		axios
 			.post('/api/delete_story', {
 				id: savedNews[event.currentTarget.id]._id,
 			})
 			.then(res => {
 				if (res.status === 200) {
-					savedNews.splice(event.currentTarget.id, 1)
+					savedNews.splice(id, 1)
 					this.setState({
 						savedNews: savedNews,
 					})
