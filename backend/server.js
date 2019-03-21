@@ -60,14 +60,6 @@ app.use(function(req, res, next) {
 app.use('/api', router)
 app.use(cors())
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
-
 const corsOptions = {
 	origin: 'http://localhost:3000',
 	optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -171,8 +163,8 @@ router.post('/saved_story', cors(corsOptions), (req, res, next) => {
 		if (error) {
 			return next(error)
 		}
+		res.send(docs)
 	})
-	res.status(204).end()
 })
 
 router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
@@ -181,6 +173,16 @@ router.get('/saved_news/:user', cors(corsOptions), (req, res, next) => {
 			return next(error)
 		}
 		res.send(docs)
+	})
+})
+
+router.post('/delete_story', cors(corsOptions), (req, res, next) => {
+	News.deleteOne({ _id: req.body.id }, function(err) {
+		if (err) {
+			console.log(err)
+			return next(err)
+		}
+		res.end()
 	})
 })
 
