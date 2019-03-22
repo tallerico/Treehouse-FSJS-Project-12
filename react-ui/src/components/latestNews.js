@@ -99,7 +99,7 @@ class TitlebarGridList extends Component {
 
 		this.setState({
 			sessionID: this.props.sessionID,
-			userID: this.props.userID,
+			userID: userID,
 		})
 	}
 
