@@ -75,8 +75,8 @@ class TitlebarGridList extends Component {
 				urlToImage: this.state.news[id].urlToImage,
 				title: this.state.news[id].title,
 				url: this.state.news[id].url,
-				sessionID: this.state.sessionID,
-				userID: this.state.userID,
+				sessionID: this.props.sessionID,
+				userID: this.props.userID,
 			})
 			.then(res => {
 				this.state.savedNews.push(res.data)
@@ -99,7 +99,7 @@ class TitlebarGridList extends Component {
 
 		this.setState({
 			sessionID: this.props.sessionID,
-			userID: userID,
+			userID: this.props.userID,
 		})
 	}
 
