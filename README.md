@@ -37,14 +37,30 @@ Create a .env file at your root directory and format it like the code below.
 
 Get your [darksky] API Key here.
 Get your [News Api] API Key here.
+
+# Google Client login and setup
+
 Set up your [Google Login Client] here.
+
+- Click on credentials --> Create credentials
+- Select OAuth client ID --> Web application
+- Add ' http://localhost:3000 ' to Authorized Javascript origins and then save.
+- Copy the Client ID you just created under OAuth2 client IDs and add it to your .env file for REACT_APP_GOOGLE_LOGIN_CLIENT_ID
 
 # DB Setup
 
 Visit [MLab] to set up your mongoDB.
 
-- follow the instructions to set up a free sandbox.
-- you will need to add the MongoDB URI to your .env file
+- Once your account is created, create new MongoDB Deployment.
+- Select the cloud provider of your choice, sandbox plan type and click continue.
+- Select a region.
+- Enter a database name(must be lower case) and click continue.
+- Click Submit Order(Don't worry. It is free.)
+- Click on the db you just created and then select Users --> Add database user.
+- Follow the prompts. Remember username and password as you will need this for your URI.
+- Copy down the URI ex. mongodb://<dbuser>:<dbpassword>@ds234389.mlab.com:31589/mydb
+- replace <dbuser> and dbpassword with the user info you just created
+- Add the MongoDB URI to your .env file.
 
 # Run
 
@@ -54,12 +70,18 @@ Once here you can cd back into your root directory.
 $ npm start
 ```
 
+To Run test.
+
+```sh
+$ npm test
+```
+
 This should start up your server and react client server and allow you to interact with the dashboard app.
 
 [darksky]: https://darksky.net/dev
 [node.js]: http://nodejs.org
 [news api]: https://newsapi.org/
-[google login client]: https://developers.google.com/identity/sign-in/web/sign-in
+[google login client]: https://console.cloud.google.com/apis
 [mlab]: https://mlab.com
 [express]: http://expressjs.com
 [angularjs]: http://angularjs.org
