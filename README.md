@@ -1,19 +1,5 @@
 # Dashup
 
-
-
- (                                   
- )\ )                )               
-(()/(      )      ( /(    (          
- /(_))  ( /(  (   )\())  ))\  `  )   
-(_))_   )(_)) )\ ((_)\  /((_) /(/(   
- |   \ ((_)_ ((_)| |(_)(_))( ((_)_\  
- | |) |/ _` |(_-<| ' \ | || || '_ \) 
- |___/ \__,_|/__/|_||_| \_,_|| .__/  
-                             |_|     
-
-
-
 Dashup is a personal dashboard app with your local weather and news from around the world.
 
 ### Installation
