@@ -28,12 +28,15 @@ $ npm install
 
 # API Keys and Env Variable Set Up:
 
-Create a .env file at your root directory and format it like the code below.
+Create a .env file in your client directory and format it like the code below.
+
+    REACT_APP_GOOGLE_LOGIN_CLIENT_ID=...KEY...
+
+Create a .env file in your backend directory and format it like the code below.
 
     DARKSKY_API=...KEY...
     MONGO_DB_LINK=...MONGO_URI...
     CNN_API=...KEY...
-    REACT_APP_GOOGLE_LOGIN_CLIENT_ID=...KEY...
 
 Get your [darksky] API Key here.
 Get your [News Api] API Key here.
