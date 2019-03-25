@@ -102,18 +102,14 @@ class TitlebarGridList extends Component {
 	}
 
 	render() {
-		const { classes } = this.props
+		// Use other to capture only the props you're not using in List
+		const { classes, root, gridList, icon, paper, ...other } = this.props
+
 		const { news } = this.state
 		const { savedNews } = this.state
 
 		let newsComponent = news.map((tile, index) => (
-			<NewsItem
-				news={tile}
-				classes={classes}
-				key={index}
-				listId={index}
-				saveStory={this.saveStory}
-			/>
+			<NewsItem {...other} news={tile} key={index} listId={index} saveStory={this.saveStory} />
 		))
 		if (this.state.checked) {
 			newsComponent = savedNews.map((tile, index) => (
@@ -122,7 +118,7 @@ class TitlebarGridList extends Component {
 					id={tile._id}
 					sessionID={this.props.sessionID}
 					userID={this.props.userID}
-					classes={classes}
+					{...other}
 					key={tile._id}
 					listId={index}
 					saved={this.state.saved}

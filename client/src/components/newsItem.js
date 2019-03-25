@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { IconButton } from '@material-ui/core'
 
 const styles = theme => ({
 	card: {
@@ -59,7 +58,7 @@ class MediaCard extends Component {
 	}
 
 	render() {
-		const { classes } = this.props
+		const { classes, root, gridList, paper } = this.props
 		const { news } = this.props
 
 		let icon = (
@@ -70,9 +69,7 @@ class MediaCard extends Component {
 				onClick={this.setSaved}
 				id={this.props.listId}
 			>
-				<IconButton>
-					<AddIcon />
-				</IconButton>
+				<AddIcon />
 			</Fab>
 		)
 
@@ -89,9 +86,7 @@ class MediaCard extends Component {
 					className={classes.fab}
 					id={this.props.listId}
 				>
-					<IconButton>
-						<DeleteIcon />
-					</IconButton>
+					<DeleteIcon />
 				</Fab>
 			)
 		}
