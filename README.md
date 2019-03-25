@@ -76,6 +76,7 @@ $ npm start
 To Run test.
 
 ```sh
+$ cd backend
 $ npm test
 ```
 
