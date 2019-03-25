@@ -83,6 +83,10 @@ class App extends Component {
 		console.log(error)
 	}
 
+	updateHistory() {
+		history.push('/home')
+	}
+
 	componentDidMount() {
 		this.setState({
 			isAuthenticated: localStorage.getItem('isAuthenticated'),
@@ -94,9 +98,11 @@ class App extends Component {
 	}
 
 	render() {
-		if (this.state.isAuthenticated) {
-			history.push('/home')
+		const safe = this.state.isAuthenticated
+		if (safe) {
+			this.updateHistory()
 		}
+
 		return (
 			<Fragment>
 				<MuiThemeProvider theme={theme}>
